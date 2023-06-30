@@ -1,0 +1,19 @@
+version: "3.6"
+
+services:
+
+  skwncr-kachelcast-panel_frontend:
+    container_name: skwncr-kachelcast-panel_frontend
+    image: skwncr-kachelcast-panel_frontend
+    working_dir: /plugin
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    command: 'webpack -w -c ./.config/webpack/webpack.config.ts --env development'
+    volumes:
+      - .:/plugin
+    environment:
+      - DEBUG=true
+      - ENVIRONMENT=default
+      - GRAFANA_API_KEY={GRAFANA_API_KEY}
