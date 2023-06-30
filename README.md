@@ -4,8 +4,11 @@
 
 A weather forecast panel plugin for grafana that displays the next 24 hours.
 
-<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_hours_02.png" alt="" width="300"/>
-
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_hours_02.png" alt="" width="100%"/>
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_hours_01.png" alt="" width="100%"/>
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_options_01.png" alt="" width="300px"/>
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_options_02.png" alt="" width="300px"/>
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_options_03.png" alt="" width="300px"/>
 
 
 ## Development
