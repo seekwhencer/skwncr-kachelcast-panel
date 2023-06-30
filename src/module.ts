@@ -5,6 +5,88 @@ import {TheOptions} from './plugin-settings-types'
 export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(builder => {
     return builder
 
+
+        .addNumberInput({
+            path: 'svgSize',
+            name: 'SVG Icon size in %',
+            description: '',
+            defaultValue: 100
+        })
+
+        .addNumberInput({
+            path: 'nightHourStart',
+            name: 'Hour where the night starts',
+            description: '',
+            defaultValue: 19
+        })
+
+        .addNumberInput({
+            path: 'nightHourEnd',
+            name: 'Hour where the night ends',
+            description: '',
+            defaultValue: 6
+        })
+
+        .addBooleanSwitch({
+            path: 'showTemperature',
+            name: 'Show temperature',
+            defaultValue: true,
+        })
+
+        .addNumberInput({
+            path: 'maxHours',
+            name: 'Number of hours in the future',
+            defaultValue: 8
+        })
+
+        .addTextInput({
+            path: 'text',
+            name: 'Simple text option',
+            description: 'Description of panel option',
+            defaultValue: 'Default value of text input option',
+        })
+
+        .addBooleanSwitch({
+            path: 'showTime',
+            name: 'Show time',
+            defaultValue: true,
+        })
+
+        .addBooleanSwitch({
+            path: 'showRain',
+            name: 'Show rain',
+            defaultValue: true,
+        })
+
+        .addNumberInput({
+            path: 'showRainOver',
+            name: 'Show rain over this value',
+            defaultValue: 49
+        })
+
+        .addRadio({
+            path: 'seriesCountSize',
+            defaultValue: 'sm',
+            name: 'Series counter size',
+            settings: {
+                options: [
+                    {
+                        value: 'sm',
+                        label: 'Small',
+                    },
+                    {
+                        value: 'md',
+                        label: 'Medium',
+                    },
+                    {
+                        value: 'lg',
+                        label: 'Large',
+                    },
+                ],
+            },
+            //showIf: config => config.showSeriesCount
+        })
+
         .addNestedOptions({
             path: 'series',
             category: ['Series'],
@@ -186,86 +268,5 @@ export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(buil
                         defaultValue: '#ffffff'
                     })
             }
-        })
-
-        .addNumberInput({
-            path: 'svgSize',
-            name: 'SVG Icon size in %',
-            description: '',
-            defaultValue: 100
-        })
-
-        .addNumberInput({
-            path: 'nightHourStart',
-            name: 'Hour where the night starts',
-            description: '',
-            defaultValue: 19
-        })
-
-        .addNumberInput({
-            path: 'nightHourEnd',
-            name: 'Hour where the night ends',
-            description: '',
-            defaultValue: 6
-        })
-
-        .addBooleanSwitch({
-            path: 'showTemperature',
-            name: 'Show temperature',
-            defaultValue: true,
-        })
-
-        .addNumberInput({
-            path: 'maxHours',
-            name: 'Number of hours in the future',
-            defaultValue: 8
-        })
-
-        .addTextInput({
-            path: 'text',
-            name: 'Simple text option',
-            description: 'Description of panel option',
-            defaultValue: 'Default value of text input option',
-        })
-
-        .addBooleanSwitch({
-            path: 'showTime',
-            name: 'Show time',
-            defaultValue: true,
-        })
-
-        .addBooleanSwitch({
-            path: 'showRain',
-            name: 'Show rain',
-            defaultValue: true,
-        })
-
-        .addNumberInput({
-            path: 'showRainOver',
-            name: 'Show rain over this value',
-            defaultValue: 49
-        })
-
-        .addRadio({
-            path: 'seriesCountSize',
-            defaultValue: 'sm',
-            name: 'Series counter size',
-            settings: {
-                options: [
-                    {
-                        value: 'sm',
-                        label: 'Small',
-                    },
-                    {
-                        value: 'md',
-                        label: 'Medium',
-                    },
-                    {
-                        value: 'lg',
-                        label: 'Large',
-                    },
-                ],
-            },
-            //showIf: config => config.showSeriesCount
         });
 });

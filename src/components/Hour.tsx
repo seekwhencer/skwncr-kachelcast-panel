@@ -1,7 +1,6 @@
 import React from 'react';
 import {PanelData} from "@grafana/data";
 import {css} from '@emotion/css';
-import {Clouds} from "./Clouds";
 import {SVGIcon} from "./SVGIcon";
 
 interface HourProps {
@@ -23,12 +22,9 @@ export const TheHour: React.FC<HourProps> = ({
                                              }) => {
     let time, night: boolean;
 
-    const colorsIndex:string = `cloud_${clouds}`;
+    const colorsIndex: string = `cloud_${clouds}`;
     const fill = options.fillColors[colorsIndex]
     const backgroundColor = options.backgroundColors[colorsIndex];
-
-    console.log(backgroundColor, colorsIndex, options.backgroundColors[colorsIndex]);
-
     const t = new Date(new Date(startTime).setHours(new Date(startTime).getHours() + index + 1));
     const h = t.getHours();
 
@@ -39,7 +35,8 @@ export const TheHour: React.FC<HourProps> = ({
 
     return (
             <div className={styles.hour}>
-                {options.showTemperature ? <div className={styles.temp}>{temp} °C {clouds}</div> : null}
+                <div className={styles.cloudNumber}>{clouds}</div>
+                {options.showTemperature ? <div className={styles.temp}>{temp} °C</div> : null}
                 {options.showRain ? rain > options.showRainOver ?
                         <div className={styles.rain}><span>{rain} %</span></div> : null : null}
                 <SVGIcon icon={clouds} night={night} fill={fill} backgroundColor={backgroundColor}/>
@@ -92,6 +89,13 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
                 backgroundColor: backgroundColor,
                 borderRadius: '3px'
             }
+        }),
+        cloudNumber: css({
+            opacity: 0.1,
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            padding: '4px'
         })
     };
 };

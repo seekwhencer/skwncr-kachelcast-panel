@@ -2,10 +2,15 @@
 
 # Kachelcast
 
-Weather forecast
-... dockerized development
+A weather forecast panel plugin for grafana that displays the next 24 hours.
+
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/panel_hours_02.png" alt="" width="300"/>
+
+
 
 ## Development
+
+... dockerized
 
 - install docker and docker compose
 - rename `.env.example` to `.env`
