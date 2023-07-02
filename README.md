@@ -66,3 +66,5 @@ A weather forecast panel plugin for grafana that displays the next 24 hours.
     |> last()
     |> group(columns:[""])
     ```
+
+<img src="https://raw.githubusercontent.com/seekwhencer/skwncr-kachelcast-panel/master/docs/screenshots/series_01.png" alt="" width="100%"/>
