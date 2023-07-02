@@ -1,18 +1,14 @@
 import React from 'react';
+import {IconProps} from './Types';
 
-interface SVGProps {
-    night: boolean;
-    fill?: string;
-    backgroundColor?: string;
-}
-
-export const IconSunCloudy: React.FC<SVGProps> = ({night, fill, backgroundColor}) => {
+export const IconSunCloudy: React.FC<IconProps> = ({className, night, fill, backgroundColor}) => {
 
     return (
             <svg
                     viewBox="0 0 30 30"
                     xmlns="http://www.w3.org/2000/svg"
                     fill={fill}
+                    className={className}
             >
                 {night ? <path d="M6.77,19.65c0-0.79,0.23-1.48,0.68-2.09c0.45-0.61,1.06-1.03,1.81-1.27c0.32-1.09,0.98-1.92,1.99-2.49v-0.35
 	c0-1.46,0.46-2.74,1.38-3.85s2.09-1.8,3.5-2.06c0.36-0.06,0.72-0.09,1.08-0.09h0.03c0.21,0,0.44,0.02,0.7,0.05

@@ -18,6 +18,8 @@ import React from 'react';
  *               9  'starker Regen',
  */
 
+import {IconProps} from './Icons/Types';
+
 import {IconSun} from './Icons/sun';
 import {IconSunCloudy} from './Icons/sun-cloudy';
 import {IconCloudy} from './Icons/cloudy';
@@ -28,26 +30,23 @@ import {IconRainLight} from "./Icons/rain-light";
 import {IconRainMedium} from "./Icons/rain-medium";
 import {IconRainHard} from "./Icons/rain-hard";
 
-interface IconProps {
+interface IconsProps extends IconProps {
     icon: number;
-    night: boolean;
-    fill?: string;
-    backgroundColor?: string;
 }
 
-export const Icons: React.FC<IconProps> = ({icon, night, fill, backgroundColor}) => {
+export const Icons: React.FC<IconsProps> = ({className, icon, night, fill, backgroundColor}) => {
 
     const icons = [
-        <IconSun key="0" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconSunCloudy key="1" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconCloudySun key="2" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconCloudy key="3" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconRainLight key="4" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconRainMedium key="5" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconFog key="6" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconThunderstorm key="7" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconRainHard key="8" night={night} fill={fill} backgroundColor={backgroundColor}/>,
-        <IconRainHard key="9" night={night} fill={fill} backgroundColor={backgroundColor}/>
+        <IconSun key="0" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconSunCloudy key="1" className={className}  night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconCloudySun key="2" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconCloudy key="3" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconRainLight key="4" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconRainMedium key="5" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconFog key="6" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconThunderstorm key="7" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconRainHard key="8" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>,
+        <IconRainHard key="9" className={className} night={night} fill={fill} backgroundColor={backgroundColor}/>
     ];
 
     return (

@@ -2,6 +2,7 @@ import React from 'react';
 import {PanelData} from "@grafana/data";
 import {css} from '@emotion/css';
 import {SVGIcon} from "./SVGIcon";
+import {IconRaindrops} from "./Icons/raindrops";
 
 interface HourProps {
     index: number;
@@ -20,7 +21,7 @@ export const TheHour: React.FC<HourProps> = ({
                                                  temp, clouds, rain,
                                                  data
                                              }) => {
-    let time, night: boolean;
+    let time, night: boolean, rainBarHeight: number;
 
     const colorsIndex: string = `cloud_${clouds}`;
     const fill = options.fillColors[colorsIndex]
@@ -28,20 +29,22 @@ export const TheHour: React.FC<HourProps> = ({
     const t = new Date(new Date(startTime).setHours(new Date(startTime).getHours() + index + 1));
     const h = t.getHours();
 
-    (h >= options.nightHourStart && h < 24) || h <= options.nightHourEnd? night = true : night = false;
-
-    console.log('NIGHT', h, options.nightHourStart, options.nightHourEnd, night);
+    (h >= options.nightHourStart && h < 24) || h <= options.nightHourEnd ? night = true : night = false;
 
     time = `${t.getHours()}:${t.getMinutes().toString().padStart(2, '0')}`;
     const styles = getStyles(options.maxHours, options.svgSize, fill, backgroundColor);
+
 
     return (
             <div className={styles.hour}>
                 <div className={styles.cloudNumber}>{clouds}</div>
                 {options.showTemperature ? <div className={styles.temp}>{temp} °C</div> : null}
+                {options.showRainDrops ? rain > options.showRainOver && rain > 50 ?
+                        <IconRaindrops className={rainDropsStyle(rain)} fill={fill} backgroundColor={backgroundColor}/> : null : null}
                 {options.showRain ? rain > options.showRainOver ?
-                        <div className={styles.rain}><span>{rain} %</span></div> : null : null}
-                <SVGIcon icon={clouds} night={night} fill={fill} backgroundColor={backgroundColor}/>
+                        <div className={styles.rain}><span>{rain} %</span>
+                        </div> : null : null}
+                <SVGIcon className={styles.icon} icon={clouds} night={night} fill={fill} backgroundColor={backgroundColor}/>
                 {options.showTime ? <div className={styles.time}>{time}</div> : null}
             </div>
     );
@@ -57,13 +60,13 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
             display: 'flex',
             alignItems: 'center',
             overflow: 'hidden',
-            svg: {
-                width: '100%',
-                height: '100%',
-                filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5))`,
-                marginTop: '-10px',
-                transform: `scale(${svgSize / 100})`
-            }
+        }),
+        icon: css({
+            width: '100%',
+            height: '100%',
+            filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5))`,
+            marginTop: '-10px',
+            transform: `scale(${svgSize / 100})`
         }),
         temp: css({
             position: 'absolute',
@@ -84,7 +87,7 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
             bottom: '20px',
             width: '100%',
             textAlign: 'center',
-            zIndex: 1000,
+            zIndex: 5,
             span: {
                 color: fill,
                 padding: '2px',
@@ -98,7 +101,18 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
             top: 0,
             right: 0,
             padding: '2px',
-            backgroundColor: 'rgba(0,0,0,0.3)'
+            backgroundColor: 'rgba(0,0,0,0.1)'
         })
     };
+};
+
+const rainDropsStyle = (scale: number) => {
+    return css({
+        zIndex: 10,
+        position: 'absolute',
+        bottom: '-5px',
+        width: '70px',
+        left: '-15px',
+        transform: `scale(${scale / 100})`
+    });
 };
