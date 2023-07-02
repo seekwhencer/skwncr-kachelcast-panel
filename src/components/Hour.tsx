@@ -28,7 +28,9 @@ export const TheHour: React.FC<HourProps> = ({
     const t = new Date(new Date(startTime).setHours(new Date(startTime).getHours() + index + 1));
     const h = t.getHours();
 
-    h >= options.nightHourStart && h <= options.nightHourEnd ? night = true : night = false;
+    (h >= options.nightHourStart && h < 24) || h <= options.nightHourEnd? night = true : night = false;
+
+    console.log('NIGHT', h, options.nightHourStart, options.nightHourEnd, night);
 
     time = `${t.getHours()}:${t.getMinutes().toString().padStart(2, '0')}`;
     const styles = getStyles(options.maxHours, options.svgSize, fill, backgroundColor);
@@ -59,7 +61,7 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
                 width: '100%',
                 height: '100%',
                 filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5))`,
-                marginTop: '-15px',
+                marginTop: '-10px',
                 transform: `scale(${svgSize / 100})`
             }
         }),
@@ -95,7 +97,8 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
             position: 'absolute',
             top: 0,
             right: 0,
-            padding: '4px'
+            padding: '2px',
+            backgroundColor: 'rgba(0,0,0,0.3)'
         })
     };
 };
