@@ -42,6 +42,25 @@ export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(buil
             defaultValue: 49
         })
 
+        .addRadio({
+            path: 'orientation',
+            defaultValue: 'horizontal',
+            name: 'Orientation',
+            settings: {
+                options: [
+                    {
+                        value: 'horizontal',
+                        label: 'Horizontal',
+                    },
+                    {
+                        value: 'vertical',
+                        label: 'Vertical',
+                    }
+                ],
+            },
+            //showIf: config => config.showSeriesCount
+        })
+
         .addNestedOptions({
             path: 'range',
             category: ['Range'],

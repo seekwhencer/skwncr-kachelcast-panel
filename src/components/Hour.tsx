@@ -1,6 +1,6 @@
 import React from 'react';
 import {PanelData} from "@grafana/data";
-import {css} from '@emotion/css';
+import {css, CSSObject} from '@emotion/css';
 import {SVGIcon} from "./SVGIcon";
 import {IconRaindrops} from "./Icons/raindrops";
 
@@ -36,65 +36,25 @@ export const TheHour: React.FC<HourProps> = ({
 
 
     return (
-            <div className={styles.hour}>
+            <div className={hourStyle(options.range.maxHours, backgroundColor, options.orientation)}>
                 <div className={styles.cloudNumber}>{clouds}</div>
-                {options.showTemperature ? <div className={styles.temp}>{temp} °C</div> : null}
+                {options.showTemperature ? <div className={tempStyle(fill, options.orientation)}>{temp} °C</div> : null}
                 {options.showRainDrops ? rain > options.showRainOver && rain > 50 ?
-                        <IconRaindrops className={rainDropsStyle(rain)} fill={fill} backgroundColor={backgroundColor}/> : null : null}
+                        <IconRaindrops className={rainDropsStyle(rain)} fill={fill}
+                                       backgroundColor={backgroundColor}/> : null : null}
                 {options.showRain ? rain > options.showRainOver ?
-                        <div className={styles.rain}><span>{rain} %</span>
+                        <div className={rainStyle(fill, backgroundColor, options.orientation)}><span>{rain} %</span>
                         </div> : null : null}
-                <SVGIcon className={styles.icon} icon={clouds} night={night} fill={fill} backgroundColor={backgroundColor}/>
-                {options.showTime ? <div className={styles.time}>{time}</div> : null}
+                <SVGIcon className={iconStyle(options.svgSize, options.orientation)} icon={clouds} night={night}
+                         fill={fill}
+                         backgroundColor={backgroundColor}/>
+                {options.showTime ? <div className={timeStyle(fill, options.orientation)}>{time}</div> : null}
             </div>
     );
 }
 
 const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundColor: string) => {
     return {
-        hour: css({
-            backgroundColor: backgroundColor,
-            width: `calc(100% / ${maxHours})`,
-            position: 'relative',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            overflow: 'hidden',
-        }),
-        icon: css({
-            width: '100%',
-            height: '100%',
-            filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5))`,
-            marginTop: '-10px',
-            transform: `scale(${svgSize / 100})`
-        }),
-        temp: css({
-            position: 'absolute',
-            top: '3px',
-            width: '100%',
-            textAlign: 'center',
-            color: fill
-        }),
-        time: css({
-            position: 'absolute',
-            bottom: '3px',
-            width: '100%;',
-            textAlign: 'center',
-            color: fill
-        }),
-        rain: css({
-            position: 'absolute',
-            bottom: '20px',
-            width: '100%',
-            textAlign: 'center',
-            zIndex: 5,
-            span: {
-                color: fill,
-                padding: '2px',
-                backgroundColor: backgroundColor,
-                borderRadius: '3px'
-            }
-        }),
         cloudNumber: css({
             opacity: 0.1,
             position: 'absolute',
@@ -105,6 +65,154 @@ const getStyles = (maxHours: number, svgSize: number, fill: string, backgroundCo
         })
     };
 };
+
+const hourStyle = (maxHours: number, backgroundColor: string, orientation: string) => {
+    const horizontal: CSSObject = {
+        width: `calc(100% / ${maxHours})`,
+        height: '100%',
+        alignItems: 'center'
+    }
+    const vertical: CSSObject = {
+        width: '100%',
+        flexDirection: 'row',
+        alignContent: 'flex-start'
+    }
+
+    let style: CSSObject = {
+        backgroundColor: backgroundColor,
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+    };
+
+    if (orientation === 'horizontal') {
+        style = {...style, ...horizontal};
+    }
+    if (orientation === 'vertical') {
+        style = {...style, ...vertical};
+    }
+
+    return css(style);
+};
+
+const iconStyle = (svgSize: number, orientation: string) => {
+    const horizontal: CSSObject = {
+        marginTop: '-10px',
+        width: '100%',
+        height: '100%'
+    }
+    const vertical: CSSObject = {
+        order: 2,
+        width: '25%'
+    }
+
+    let style: CSSObject = {
+        filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5))`,
+        transform: `scale(${svgSize / 100})`
+    };
+
+    if (orientation === 'horizontal') {
+        style = {...style, ...horizontal};
+    }
+    if (orientation === 'vertical') {
+        style = {...style, ...vertical};
+    }
+
+    return css(style);
+}
+
+const tempStyle = (fill: string, orientation: string) => {
+    const horizontal: CSSObject = {
+        position: 'absolute',
+        top: '3px',
+        width: '100%'
+    }
+    const vertical: CSSObject = {
+        order: 3,
+        width: '25%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+
+    let style: CSSObject = {
+        textAlign: 'center',
+        color: fill
+    }
+
+    if (orientation === 'horizontal') {
+        style = {...style, ...horizontal};
+    }
+    if (orientation === 'vertical') {
+        style = {...style, ...vertical};
+    }
+
+    return css(style);
+}
+
+const timeStyle = (fill: string, orientation: string) => {
+    let style: CSSObject = {
+        color: fill
+    };
+
+    const horizontal: CSSObject = {
+        position: 'absolute',
+        bottom: '3px',
+        width: '100%;',
+        textAlign: 'center'
+    }
+    const vertical: CSSObject = {
+        order: 1,
+        width: '25%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+
+    if (orientation === 'horizontal') {
+        style = {...style, ...horizontal};
+    }
+    if (orientation === 'vertical') {
+        style = {...style, ...vertical};
+    }
+
+    return css(style);
+}
+
+const rainStyle = (fill: string, backgroundColor: string, orientation: string) => {
+    const horizontal: CSSObject = {
+        position: 'absolute',
+        bottom: '20px',
+        width: '100%',
+        zIndex: 5
+    }
+    const vertical: CSSObject = {
+        order: 4,
+        width: '25%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+
+    let style: CSSObject = {
+        textAlign: 'center',
+        span: {
+            color: fill,
+            padding: '2px',
+            backgroundColor: backgroundColor,
+            borderRadius: '3px'
+        }
+    };
+
+    if (orientation === 'horizontal') {
+        style = {...style, ...horizontal};
+    }
+    if (orientation === 'vertical') {
+        style = {...style, ...vertical};
+    }
+
+    return css(style);
+}
 
 const rainDropsStyle = (scale: number) => {
     return css({
