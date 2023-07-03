@@ -34,6 +34,12 @@ export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(buil
             path: 'showRainDrops',
             name: 'Show raindrops',
             defaultValue: true,
+        }).
+
+        addBooleanSwitch({
+            path: 'noBackground',
+            name: 'No background',
+            defaultValue: false,
         })
 
         .addNumberInput({

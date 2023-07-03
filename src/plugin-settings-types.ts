@@ -24,6 +24,7 @@ export interface TheOptions {
     showRain: boolean;
     showRainOver: number;
     showRainDrops: boolean;
+    noBackground: boolean;
     range: Range;
     series: Series;
     orientation: Orientation;
