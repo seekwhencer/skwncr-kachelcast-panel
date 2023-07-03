@@ -21,7 +21,7 @@ export const TheHour: React.FC<HourProps> = ({
                                                  temp, clouds, rain,
                                                  data
                                              }) => {
-    let time, night: boolean, rainBarHeight: number;
+    let time, night: boolean;
 
     const colorsIndex: string = `cloud_${clouds}`;
     const fill = options.fillColors[colorsIndex]
@@ -29,10 +29,10 @@ export const TheHour: React.FC<HourProps> = ({
     const t = new Date(new Date(startTime).setHours(new Date(startTime).getHours() + index + 1));
     const h = t.getHours();
 
-    (h >= options.nightHourStart && h < 24) || h <= options.nightHourEnd ? night = true : night = false;
+    (h >= options.range.nightHourStart && h < 24) || h <= options.range.nightHourEnd ? night = true : night = false;
 
     time = `${t.getHours()}:${t.getMinutes().toString().padStart(2, '0')}`;
-    const styles = getStyles(options.maxHours, options.svgSize, fill, backgroundColor);
+    const styles = getStyles(options.range.maxHours, options.svgSize, fill, backgroundColor);
 
 
     return (

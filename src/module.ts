@@ -5,7 +5,6 @@ import {TheOptions} from './plugin-settings-types'
 export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(builder => {
     return builder
 
-
         .addNumberInput({
             path: 'svgSize',
             name: 'SVG Icon size in %',
@@ -13,37 +12,10 @@ export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(buil
             defaultValue: 100
         })
 
-        .addNumberInput({
-            path: 'nightHourStart',
-            name: 'Hour where the night starts',
-            description: '',
-            defaultValue: 19
-        })
-
-        .addNumberInput({
-            path: 'nightHourEnd',
-            name: 'Hour where the night ends',
-            description: '',
-            defaultValue: 6
-        })
-
         .addBooleanSwitch({
             path: 'showTemperature',
             name: 'Show temperature',
             defaultValue: true,
-        })
-
-        .addNumberInput({
-            path: 'maxHours',
-            name: 'Number of hours in the future',
-            defaultValue: 8
-        })
-
-        .addTextInput({
-            path: 'text',
-            name: 'Simple text option',
-            description: 'Description of panel option',
-            defaultValue: 'Default value of text input option',
         })
 
         .addBooleanSwitch({
@@ -70,27 +42,46 @@ export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(buil
             defaultValue: 49
         })
 
-        .addRadio({
-            path: 'seriesCountSize',
-            defaultValue: 'sm',
-            name: 'Series counter size',
-            settings: {
-                options: [
-                    {
-                        value: 'sm',
-                        label: 'Small',
-                    },
-                    {
-                        value: 'md',
-                        label: 'Medium',
-                    },
-                    {
-                        value: 'lg',
-                        label: 'Large',
-                    },
-                ],
-            },
-            //showIf: config => config.showSeriesCount
+        .addNestedOptions({
+            path: 'range',
+            category: ['Range'],
+            build: (builder) => {
+                builder
+                    .addNumberInput({
+                        path: 'maxHours',
+                        name: 'Number of hours in the future',
+                        defaultValue: 8
+                    })
+
+                    .addNumberInput({
+                        path: 'hourStart',
+                        name: 'Hour where the listing begins (1-24)',
+                        description: '',
+                        defaultValue: 1
+                    })
+
+                    .addNumberInput({
+                        path: 'hourEnd',
+                        name: 'Hour where the listing ends (1-24)',
+                        description: '',
+                        defaultValue: 24
+                    })
+
+                    .addNumberInput({
+                        path: 'nightHourStart',
+                        name: 'Hour where the night starts',
+                        description: '',
+                        defaultValue: 19
+                    })
+
+                    .addNumberInput({
+                        path: 'nightHourEnd',
+                        name: 'Hour where the night ends',
+                        description: '',
+                        defaultValue: 6
+                    })
+
+            }
         })
 
         .addNestedOptions({
@@ -275,4 +266,5 @@ export const plugin = new PanelPlugin<TheOptions>(ThePanel).setPanelOptions(buil
                     })
             }
         });
-});
+})
+    ;

@@ -7,11 +7,9 @@ export interface TheOptions {
     temperatureMeasurement: string;
     cloudsMeasurement: string;
     rainMeasurement: string;
-    text: string;
     maxHours: number;
     showTemperature: boolean;
     showTime: boolean;
     showRain: boolean;
     showRainOver: number;
-    seriesCountSize: SeriesSize;
 }

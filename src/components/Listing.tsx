@@ -16,7 +16,6 @@ export const TheListing: React.FC<ListingProps> = ({options, data}) => {
             data.series[0].fields.filter(f => f.name === '_measurement')[0].values,
             data.series[0].fields.filter(f => f.name === '_value')[0].values
     );
-    //console.log(temp);
 
     const clouds = transformData(
             options.series.cloudsMeasurement,
@@ -24,7 +23,6 @@ export const TheListing: React.FC<ListingProps> = ({options, data}) => {
             data.series[1].fields.filter(f => f.name === '_measurement')[0].values,
             data.series[1].fields.filter(f => f.name === '_value')[0].values
     );
-    //console.log(clouds);
 
     const rain = transformData(
             options.series.rainMeasurement,
@@ -34,8 +32,15 @@ export const TheListing: React.FC<ListingProps> = ({options, data}) => {
     );
 
     const startTime = data.series[0].fields.filter(f => f.name === '_time')[0].values.get(0);
+    let hourStart = options.range.hourStart - 1;
+    let hourEnd = options.range.maxHours || options.range.hourEnd;
 
-    for (let i = 0; i < options.maxHours; i++) {
+    hourStart > 24 ? hourStart = 24 : null;
+    hourStart < 0 ? hourStart = 0 : null;
+    hourEnd > 24 ? hourEnd = 24 : null;
+    hourEnd < 0 ? hourEnd = 0 : null;
+
+    for (let i = hourStart; i < hourEnd; i++) {
         hours.push(<TheHour
                 index={i}
                 options={options}
@@ -60,7 +65,7 @@ const transformData = (measurement: string, measurementSuffix: string, measureme
 
     for (let i = 0; i < measurements.length; i++) {
         result = measurements.get(i);
-        index = parseInt(result.replace(measurement,'').replace(measurementSuffix,'').replace(/\//g,''), 10) - 1;
+        index = parseInt(result.replace(measurement, '').replace(measurementSuffix, '').replace(/\//g, ''), 10) - 1;
         data[index] = values.get(i);
     }
     return data;
