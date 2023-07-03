@@ -6,7 +6,7 @@ import {css, CSSObject} from '@emotion/css';
  * @param backgroundColor
  * @param orientation
  */
-const hourStyle = (maxHours: number, backgroundColor: string, orientation: string) => {
+const hour = (maxHours: number, backgroundColor: string, orientation: string) => {
     const horizontal: CSSObject = {
         width: `calc(100% / ${maxHours})`,
         height: '100%',
@@ -40,7 +40,7 @@ const hourStyle = (maxHours: number, backgroundColor: string, orientation: strin
  * @param svgSize
  * @param orientation
  */
-const iconStyle = (svgSize: number, orientation: string) => {
+const icon = (svgSize: number, orientation: string) => {
     const horizontal: CSSObject = {
         marginTop: '-10px',
         width: '100%',
@@ -71,7 +71,7 @@ const iconStyle = (svgSize: number, orientation: string) => {
  * @param fill
  * @param orientation
  */
-const tempStyle = (fill: string, orientation: string) => {
+const temp = (fill: string, orientation: string) => {
     const horizontal: CSSObject = {
         position: 'absolute',
         top: '3px',
@@ -105,7 +105,7 @@ const tempStyle = (fill: string, orientation: string) => {
  * @param fill
  * @param orientation
  */
-const timeStyle = (fill: string, orientation: string) => {
+const time = (fill: string, orientation: string) => {
     let style: CSSObject = {
         color: fill
     };
@@ -140,7 +140,7 @@ const timeStyle = (fill: string, orientation: string) => {
  * @param backgroundColor
  * @param orientation
  */
-const rainStyle = (fill: string, backgroundColor: string, orientation: string) => {
+const rain = (fill: string, backgroundColor: string, orientation: string) => {
     const horizontal: CSSObject = {
         position: 'absolute',
         bottom: '20px',
@@ -179,7 +179,7 @@ const rainStyle = (fill: string, backgroundColor: string, orientation: string) =
  *
  * @param scale
  */
-const rainDropsStyle = (scale: number) => {
+const rainDrops = (scale: number) => {
     return css({
         zIndex: 10,
         position: 'absolute',
@@ -190,7 +190,10 @@ const rainDropsStyle = (scale: number) => {
     });
 };
 
-const cloudValueStyle = () => {
+/**
+ *
+ */
+const cloudValue = () => {
     return css({
         opacity: 0.1,
         position: 'absolute',
@@ -202,11 +205,11 @@ const cloudValueStyle = () => {
 };
 
 export {
-    hourStyle,
-    iconStyle,
-    tempStyle,
-    timeStyle,
-    rainStyle,
-    rainDropsStyle,
-    cloudValueStyle
+    hour,
+    icon,
+    temp,
+    time,
+    rain,
+    rainDrops,
+    cloudValue
 };
